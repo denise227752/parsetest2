@@ -1,6 +1,7 @@
 package labrador.cse.usf.parsetest2;
 
 import android.os.AsyncTask;
+import android.os.Bundle;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,22 +14,32 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.zip.ZipEntry;
+
+import static labrador.cse.usf.parsetest2.MainActivity.zip;
 
 public class fetchData extends AsyncTask<Void,Void,Void> {
     String data ="";
-    String dataParsed = "";
+    String dataParsed ="";
     String singleParsed ="";
+
     //String icon_restaurant="";
+//String zip=get().getExtra("zip");
+
 
 
     @Override
     protected Void doInBackground(Void... voids) {
         try {
-            URL url = new URL("https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+Tampa+33620&key=AIzaSyBDSrahseWZ95JmdeyfIDmGAuB6Aaodiz0");
+            //dataParsed=dataParsed+zip;
+            String url1="https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+";
+            String url2="&key=AIzaSyBDSrahseWZ95JmdeyfIDmGAuB6Aaodiz0";
+            URL url = new URL(url1+zip+url2);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
+            dataParsed=dataParsed+"URL used:  " +url1+zip+url2+"\n";
             while(line != null){
                 line = bufferedReader.readLine();
                 data = data + line;
